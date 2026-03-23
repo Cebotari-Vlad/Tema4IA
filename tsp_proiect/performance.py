@@ -24,7 +24,7 @@ def ruleaza_experiment():
     Returns:
         None
     """
-    valori_n_bt = [5, 7, 8, 10, 12, 14,15, 16]
+    valori_n_bt = [5, 7, 8, 10, 12, 14,15, 16, 17, 1000]
     valori_n_hc = [5, 7, 8, 10, 12, 15, 20, 30, 50, 70, 100]
 
     timpi_bt = []
@@ -43,27 +43,27 @@ def ruleaza_experiment():
         timpi_bt.append(durata)
 
 
-
-    fig, axes = plt.subplots(1, 2, figsize=(12, 5))
-
-    # --- Subplot stanga (linear) ---
-    axes[0].plot(valori_n_bt, timpi_bt, marker='o', label="Backtracking")
-    axes[0].plot(valori_n_hc, timpi_hc, marker='o', label="Hill Climbing")
-    axes[0].set_title("Comparatie performanta (scara liniara)")
-    axes[0].set_xlabel("Numar orase (N)")
-    axes[0].set_ylabel("Timp executie (sec)")
-    axes[0].legend()
-    axes[0].grid()
+    #
+    # fig, axes = plt.subplots(1, 2, figsize=(12, 5))
+    #
+    # # --- Subplot stanga (linear) ---
+    # axes[0].plot(valori_n_bt, timpi_bt, marker='o', label="Backtracking")
+    # axes[0].plot(valori_n_hc, timpi_hc, marker='o', label="Hill Climbing")
+    # axes[0].set_title("Comparatie performanta (scara liniara)")
+    # axes[0].set_xlabel("Numar orase (N)")
+    # axes[0].set_ylabel("Timp executie (sec)")
+    # axes[0].legend()
+    # axes[0].grid()
 
     # --- Subplot dreapta (log) ---
-    axes[1].semilogy(valori_n_bt, timpi_bt, marker='o', label="Backtracking")
-    axes[1].semilogy(valori_n_hc, timpi_hc, marker='o', label="Hill Climbing")
-    axes[1].set_title("Comparatie performanta (scara logaritmica)")
-    axes[1].set_xlabel("Numar orase (N)")
-    axes[1].set_ylabel("Timp executie (log scale)")
-    axes[1].legend()
-    axes[1].grid()
+    # axes[1].semilogy(valori_n_bt, timpi_bt, marker='o', label="Backtracking")
+    # axes[1].semilogy(valori_n_hc, timpi_hc, marker='o', label="Hill Climbing")
+    # axes[1].set_title("Comparatie performanta (scara logaritmica)")
+    # axes[1].set_xlabel("Numar orase (N)")
+    # axes[1].set_ylabel("Timp executie (log scale)")
+    # axes[1].legend()
+    # axes[1].grid()
 
-    plt.tight_layout()
-    plt.savefig("comparare_performanta.png")
-    plt.show()
+    # plt.tight_layout()
+    # plt.savefig("comparare_performanta.png")
+    # plt.show()

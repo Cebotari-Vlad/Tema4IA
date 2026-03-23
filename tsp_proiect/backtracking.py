@@ -12,13 +12,14 @@ Exemplu:
 
 import sys
 import time
+
 from tsp_proiect.io_utils import citeste_matrice
 
 # Variabile globale pentru solutia optima.
 # Sunt resetate la inceputul fiecarei rulari in rezolva_tsp().
 
 
-def _backtracking(matrice, n, oras_curent, vizitat, traseu, cost, cost_min, _traseu_optim):
+def _backtracking(matrice, n, oras_curent, vizitat, traseu, cost, cost_min, _traseu_optim, mod, sol_gasite, start_time, y_solutii, timp_max):
     """Explorare recursiva a spatiului de solutii TSP prin backtracking.
 
     La fiecare apel recursiv se incearca extinderea traseului curent cu un
@@ -35,8 +36,27 @@ def _backtracking(matrice, n, oras_curent, vizitat, traseu, cost, cost_min, _tra
             Primul element este intotdeauna 0 (orasul de start).
         cost: Costul acumulat al traseului partial curent (int sau float).
     """
+
+    #CONDITII STOP
+    match mod:
+        case "prima":
+            if sol_gasite[0] == 1:
+                return
+        case "toate":
+            pass
+        case "y_solutii":
+            if sol_gasite[0] == y_solutii:
+                return
+        case "timp":
+            durata_bkt = time.perf_counter() - start_time
+            if durata_bkt >= timp_max:
+                print(durata_bkt, n)
+                return
+
+
     # Caz de baza: toate orasele au fost vizitate — inchidem turul.
     if len(traseu) == n:
+        sol_gasite[0]+=1
         cost_total = cost + matrice[oras_curent][traseu[0]]
         if cost_total < cost_min[0]:
             cost_min[0] = cost_total
@@ -58,7 +78,7 @@ def _backtracking(matrice, n, oras_curent, vizitat, traseu, cost, cost_min, _tra
         vizitat[urmator] = True
         traseu.append(urmator)
 
-        _backtracking(matrice, n, urmator, vizitat, traseu, cost_nou, cost_min, _traseu_optim)
+        _backtracking(matrice, n, urmator, vizitat, traseu, cost_nou, cost_min, _traseu_optim, mod, sol_gasite, start_time, y_solutii, timp_max)
 
         # Revenire (backtrack): restauram starea pentru a explora alte ramuri.
         traseu.pop()
@@ -92,7 +112,7 @@ def rezolva_tsp(cale_fisier):
     vizitat[0] = True
 
     start = time.perf_counter()
-    _backtracking(matrice, n, 0, vizitat, [0], 0, _cost_minim, _traseu_optim)
+    _backtracking(matrice, n, 0, vizitat, [0], 0, _cost_minim, _traseu_optim, "timp", [0], start, 0, 5)
     durata = time.perf_counter() - start
 
     if _traseu_optim:
